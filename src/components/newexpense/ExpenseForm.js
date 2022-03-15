@@ -28,16 +28,27 @@ const ExpenseForm = (props) => {
         
         const expenseData = {
             title: userInput.inpTitle,
-            amount: userInput.inpAmount,
+            amount: +userInput.inpAmount,
             date: new Date(userInput.inpDate)
         }
 
-        props.onSaveNewExpense(expenseData)
-        setUserInput({
-            inpTitle: '',
-            inpAmount: '',
-            inpDate: ''
+        const ifNull = Object.values(expenseData).filter(val => {
+            if(Object.prototype.toString.call(val) === '[object Date]') {
+                return isNaN(val)
+            }
+            else {
+                return !val
+            }
         })
+
+        if(ifNull.length === 0) {
+            props.onSaveNewExpense(expenseData)
+            setUserInput({
+                inpTitle: '',
+                inpAmount: '',
+                inpDate: ''
+            })
+        }
     }
 
     const cancelForm = () => {
@@ -54,15 +65,15 @@ const ExpenseForm = (props) => {
         <div className="new-expense__controls">
             <div className="new-expense__control">
                 <label>Title</label>
-                <input id="me" type="text" value={userInput.inpTitle} onChange={titleChange} />
+                <input id="me" type="text" value={userInput.inpTitle} onChange={titleChange} required/>
             </div>
             <div className="new-expense__control">
                 <label>Amount</label>
-                <input type="number" min="0.01" step="0.01" value={userInput.inpAmount} onChange={amountChange} />
+                <input type="number" min="0.01" step="0.01" value={userInput.inpAmount} onChange={amountChange} required/>
             </div>
             <div className="new-expense__control">
                 <label>Date</label>
-                <input type="date" min="2019-01-01" max="2022-12-31" value={userInput.inpDate} onChange={dateChange} />
+                <input type="date" min="2019-01-01" max="2022-12-31" value={userInput.inpDate} onChange={dateChange} required/>
             </div>
         </div>
         <div className="new-expense__actions">
