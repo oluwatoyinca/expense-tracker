@@ -31,16 +31,21 @@ const DUMMY_EXPENSES = [
 
 const App = () => {
   const [expenses, setExpenses] = useState(DUMMY_EXPENSES)
+  const [filtYear, setFiltYear] = useState(new Date().getFullYear().toString())
+
+  const filChange = (year) => {
+      setFiltYear(year)
+  }
 
   const addNewExpense = (expenseData) => {
     setExpenses((prevState)=> {return [expenseData, ...prevState]})
-    console.log(expenses)
+    setFiltYear(expenseData.date.getFullYear().toString())
   }
   
   return (
     <div>
       <NewExpense onNewExpense={addNewExpense} />
-      <Expenses expenses={expenses}/>
+      <Expenses expenses={expenses} filtYear={filtYear} onFilChange={filChange}/>
     </div>
   );
 }
