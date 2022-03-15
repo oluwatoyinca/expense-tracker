@@ -31,7 +31,12 @@ const DUMMY_EXPENSES = [
 
 const App = () => {
   const [expenses, setExpenses] = useState(DUMMY_EXPENSES)
-  const [filtYear, setFiltYear] = useState(new Date().getFullYear().toString())
+
+  const expDates = expenses.map(expense => expense.date.getFullYear().toString())
+  const filterDates = expDates.filter((value, index, self) => self.indexOf(value) === index)
+  filterDates.sort(function(a, b){return a-b}).reverse()
+  
+  const [filtYear, setFiltYear] = useState(filterDates[0])
 
   const filChange = (year) => {
       setFiltYear(year)
@@ -45,7 +50,7 @@ const App = () => {
   return (
     <div>
       <NewExpense onNewExpense={addNewExpense} />
-      <Expenses expenses={expenses} filtYear={filtYear} onFilChange={filChange}/>
+      <Expenses expenses={expenses} filtYear={filtYear} onFilChange={filChange} filterDates={filterDates} />
     </div>
   );
 }

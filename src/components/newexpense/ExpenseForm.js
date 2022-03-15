@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState} from 'react'
 import './ExpenseForm.css'
 // import $ from 'jquery'
 
@@ -60,6 +60,10 @@ const ExpenseForm = (props) => {
         })
     }
 
+    const today = new Date()
+    const offset = today.getTimezoneOffset()
+    const useDate = new Date(today.getTime() - (offset*60*1000)).toISOString().split('T')[0]
+
     return ( 
     <form onSubmit={formSubmit}>
         <div className="new-expense__controls">
@@ -73,7 +77,7 @@ const ExpenseForm = (props) => {
             </div>
             <div className="new-expense__control">
                 <label>Date</label>
-                <input type="date" min="2019-01-01" max="2022-12-31" value={userInput.inpDate} onChange={dateChange} required/>
+                <input type="date" min="2019-01-01" max={useDate} value={userInput.inpDate} onChange={dateChange} required/>
             </div>
         </div>
         <div className="new-expense__actions">
