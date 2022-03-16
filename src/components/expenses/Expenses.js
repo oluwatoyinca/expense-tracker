@@ -15,11 +15,15 @@ const Expenses = (props) => {
         return expenser.date.getFullYear().toString() === props.filtYear
     })
 
+    const delExp = (expId) => {
+        props.onDeleteOfExp(expId)
+    }
+
     return (
         <Card className='expenses'>
             <ExpensesFilter selectedYear={props.filtYear} onFilterChange={dateFilter} filterDates={props.filterDates} />
             <ExpensesChart expenses={filteredExpenses} />
-            <ExpensesList expenses={filteredExpenses} />
+            <ExpensesList expenses={filteredExpenses} onDeleteExpe={delExp}/>
         </Card>
         );
 }

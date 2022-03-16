@@ -46,11 +46,36 @@ const App = () => {
     setExpenses((prevState)=> {return [expenseData, ...prevState]})
     setFiltYear(expenseData.date.getFullYear().toString())
   }
+
+  const deleteExpense = (expId) => {
+    let tempFilYear = filtYear
+    const toDelIndex = expenses.findIndex(function (expense) {
+      return expense.id === expId;
+    })
+    
+    const toDelDateIndex = filterDates.findIndex(function (date) {
+      return date === filtYear;
+    })
+    
+    filterDates.splice(toDelDateIndex, 1)
+    
+    if(expenses.filter(expense => expense.date.getFullYear().toString() === expenses[toDelIndex].date.getFullYear().toString()).length < 2) {
+      if(filterDates.length > 0) {
+        tempFilYear = filterDates[0]
+      }
+      else {
+        tempFilYear = new Date().getFullYear().toString()
+      }
+    }
+
+    setExpenses((prevState) => {return prevState.filter((expense) => expense.id !== expId)})
+    setFiltYear(tempFilYear)
+  }
   
   return (
     <div>
       <NewExpense onNewExpense={addNewExpense} />
-      <Expenses expenses={expenses} filtYear={filtYear} onFilChange={filChange} filterDates={filterDates} />
+      <Expenses expenses={expenses} filtYear={filtYear} onFilChange={filChange} filterDates={filterDates} onDeleteOfExp={deleteExpense}/>
     </div>
   );
 }
