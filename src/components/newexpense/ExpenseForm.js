@@ -18,24 +18,21 @@ const ExpenseForm = (props) => {
 
     const titleChange = (e) => {
         setUserInput((prevState) => {return {...prevState, inpTitle: e.target.value}})
+        setIsValid((prevState) => {return {...prevState, title: true}})
     }
 
     const amountChange = (e) => {
         setUserInput((prevState) => {return {...prevState, inpAmount: e.target.value}})
+        setIsValid((prevState) => {return {...prevState, amount: true}})
     }
 
     const dateChange = (e) => {
         setUserInput((prevState) => {return {...prevState, inpDate: e.target.value}})
+        setIsValid((prevState) => {return {...prevState, date: true}})
     }
 
     const formSubmit = (e) => {
         e.preventDefault()
-        
-        setIsValid({
-            title: true,
-            amount: true,
-            date: true
-        })
         
         const expenseData = {
             title: userInput.inpTitle.trim(),
