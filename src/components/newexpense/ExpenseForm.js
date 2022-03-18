@@ -8,6 +8,11 @@ const ExpenseForm = (props) => {
         inpAmount: '',
         inpDate: ''
     })
+    const [isValid, setIsValid] = useState({
+        title: true,
+        amount: true,
+        date: true
+    })
 
     // useEffect(()=>{console.log(userInput)})
 
@@ -26,18 +31,24 @@ const ExpenseForm = (props) => {
     const formSubmit = (e) => {
         e.preventDefault()
         
+        setIsValid({
+            title: true,
+            amount: true,
+            date: true
+        })
+        
         const expenseData = {
-            title: userInput.inpTitle,
-            amount: +userInput.inpAmount,
-            date: new Date(userInput.inpDate)
+            title: userInput.inpTitle.trim(),
+            amount: +userInput.inpAmount.trim(),
+            date: new Date(userInput.inpDate.trim())
         }
 
-        const ifNull = Object.values(expenseData).filter(val => {
-            if(Object.prototype.toString.call(val) === '[object Date]') {
-                return isNaN(val)
+        const ifNull = Object.entries(expenseData).filter(ent => {
+            if(Object.prototype.toString.call(ent[1]) === '[object Date]') {
+                return isNaN(ent[1])
             }
             else {
-                return !val
+                return !ent[1]
             }
         })
 
@@ -47,6 +58,12 @@ const ExpenseForm = (props) => {
                 inpTitle: '',
                 inpAmount: '',
                 inpDate: ''
+            })
+        }
+        else {
+            ifNull.map(data => {
+                const mKey = data[0]
+                return setIsValid((prevState) => {return {...prevState, [mKey]: false}})
             })
         }
     }
@@ -68,15 +85,15 @@ const ExpenseForm = (props) => {
     <form onSubmit={formSubmit}>
         <div className="new-expense__controls">
             <div className="new-expense__control">
-                <label>Title</label>
+                <label style={{color: !isValid.title ? 'red' : 'black'}}>Title</label>
                 <input id="me" type="text" value={userInput.inpTitle} onChange={titleChange} required/>
             </div>
             <div className="new-expense__control">
-                <label>Amount</label>
+                <label style={{color: !isValid.amount ? 'red' : 'black'}}>Amount</label>
                 <input type="number" min="0.01" step="0.01" value={userInput.inpAmount} onChange={amountChange} required/>
             </div>
             <div className="new-expense__control">
-                <label>Date</label>
+                <label style={{color: !isValid.date ? 'red' : 'black'}}>Date</label>
                 <input type="date" min="2019-01-01" max={useDate} value={userInput.inpDate} onChange={dateChange} required/>
             </div>
         </div>
