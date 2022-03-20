@@ -55,7 +55,7 @@ const ExpenseForm = (props) => {
                 return setIsValid((prevState) => {return {...prevState, [mKey]: false}})
             })
         }
-        else if(expenseData.amount < 0) {
+        else if(expenseData.amount < 0.01) {
             setIsValid((prevState) => {return {...prevState, amount: false}})
         }
         else {
@@ -86,15 +86,15 @@ const ExpenseForm = (props) => {
         <div className="new-expense__controls">
             <div className="new-expense__control">
                 <label style={{color: !isValid.title ? 'red' : 'black'}}>Title</label>
-                <input id="me" type="text" value={userInput.inpTitle} onChange={titleChange} required/>
+                <input id="me" type="text" value={userInput.inpTitle} onChange={titleChange} />
             </div>
             <div className="new-expense__control">
                 <label style={{color: !isValid.amount ? 'red' : 'black'}}>Amount</label>
-                <input type="number" min="0.01" step="0.01" value={userInput.inpAmount} onChange={amountChange} required/>
+                <input type="number" min="0.01" step="0.01" value={userInput.inpAmount} onChange={amountChange} />
             </div>
             <div className="new-expense__control">
                 <label style={{color: !isValid.date ? 'red' : 'black'}}>Date</label>
-                <input type="date" min="2019-01-01" max={useDate} value={userInput.inpDate} onChange={dateChange} required/>
+                <input type="date" min="2019-01-01" max={useDate} value={userInput.inpDate} onChange={dateChange} />
             </div>
         </div>
         <div className="new-expense__actions">
