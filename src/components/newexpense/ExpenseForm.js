@@ -49,18 +49,21 @@ const ExpenseForm = (props) => {
             }
         })
 
-        if(ifNull.length === 0) {
+        if(ifNull.length > 0) {
+            ifNull.map(data => {
+                const mKey = data[0]
+                return setIsValid((prevState) => {return {...prevState, [mKey]: false}})
+            })
+        }
+        else if(expenseData.amount < 0) {
+            setIsValid((prevState) => {return {...prevState, amount: false}})
+        }
+        else {
             props.onSaveNewExpense(expenseData)
             setUserInput({
                 inpTitle: '',
                 inpAmount: '',
                 inpDate: ''
-            })
-        }
-        else {
-            ifNull.map(data => {
-                const mKey = data[0]
-                return setIsValid((prevState) => {return {...prevState, [mKey]: false}})
             })
         }
     }
