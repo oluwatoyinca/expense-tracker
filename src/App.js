@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, Fragment } from 'react'
 import NewExpense from './components/newexpense/NewExpense'
 import Expenses from './components/expenses/Expenses'
 
@@ -73,10 +73,10 @@ const App = () => {
   }
   
   return (
-    <div>
+    <Fragment>
       <NewExpense onNewExpense={addNewExpense} />
       <Expenses expenses={expenses} filtYear={filtYear} onFilChange={filChange} filterDates={filterDates} onDeleteOfExp={deleteExpense}/>
-    </div>
+    </Fragment>
   );
 }
 
