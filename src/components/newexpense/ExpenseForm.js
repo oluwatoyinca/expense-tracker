@@ -85,15 +85,15 @@ const ExpenseForm = (props) => {
     <form onSubmit={formSubmit}>
         <div className="new-expense__controls">
             <div className="new-expense__control">
-                <label style={{color: !isValid.title ? 'red' : 'black'}}>Title</label>
+                <label style={{color: !isValid.title ? 'red' : 'black'}}>Title *</label>
                 <input id="me" type="text" value={userInput.inpTitle} onChange={titleChange} />
             </div>
             <div className="new-expense__control">
-                <label style={{color: !isValid.amount ? 'red' : 'black'}}>Amount</label>
+                <label style={{color: !isValid.amount ? 'red' : 'black'}}>Amount *</label>
                 <input type="number" min="0.01" step="0.01" value={userInput.inpAmount} onChange={amountChange} />
             </div>
             <div className="new-expense__control">
-                <label style={{color: !isValid.date ? 'red' : 'black'}}>Date</label>
+                <label style={{color: !isValid.date ? 'red' : 'black'}}>Date *</label>
                 <input type="date" min="2019-01-01" max={useDate} value={userInput.inpDate} onChange={dateChange} />
             </div>
         </div>
