@@ -8,10 +8,6 @@ const ExpensesList = (props) => {
         )
     }
 
-    const deleteExp = (expId) => {
-        props.onDeleteExpe(expId)
-    }
-
     const amountArr = props.expenses.map(expense => expense.amount)
     const sum = amountArr.reduce((a, b) => a + b, 0)
     props.expenses.sort((a, b) => b.date - a.date)
@@ -19,7 +15,7 @@ const ExpensesList = (props) => {
     return (
         <ul className='expenses-list'>
             <h3 className='expense-item__price'>Total:  ${sum}</h3>
-            {props.expenses.map((expense) => {return <ExpenseItem key={expense.id} id={expense.id} title={expense.title} amount={expense.amount} date={expense.date} onDelete={deleteExp}/>})}
+            {props.expenses.map((expense) => {return <ExpenseItem key={expense.id} id={expense.id} title={expense.title} amount={expense.amount} date={expense.date} />})}
         </ul>
     )
 }

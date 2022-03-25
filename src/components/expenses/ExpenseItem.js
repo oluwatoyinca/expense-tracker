@@ -1,11 +1,14 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import ExpenseDate from './ExpenseDate'
 import Card from '../ui/Card'
 import './ExpenseItem.css'
+import ExpenseItemContext from '../../context/expenseitem-context'
 
 const ExpenseItem = (props) => {
+    const expCtx = useContext(ExpenseItemContext)
+    
     const deleteExpense = () => {
-        props.onDelete(props.id)
+        expCtx.deleteExpense(props.id)
     }
 
     return (

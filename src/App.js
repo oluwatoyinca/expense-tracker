@@ -1,6 +1,7 @@
 import React, { useState, Fragment } from 'react'
 import NewExpense from './components/newexpense/NewExpense'
 import Expenses from './components/expenses/Expenses'
+import ExpenseItemContext from './context/expenseitem-context'
 
 const DUMMY_EXPENSES = [
   {
@@ -74,8 +75,10 @@ const App = () => {
   
   return (
     <Fragment>
-      <NewExpense onNewExpense={addNewExpense} />
-      <Expenses expenses={expenses} filtYear={filtYear} onFilChange={filChange} filterDates={filterDates} onDeleteOfExp={deleteExpense}/>
+      <ExpenseItemContext.Provider value={{deleteExpense, filChange, filterDates}}>
+        <NewExpense onNewExpense={addNewExpense} />
+        <Expenses expenses={expenses} filtYear={filtYear} />
+      </ExpenseItemContext.Provider>
     </Fragment>
   );
 }

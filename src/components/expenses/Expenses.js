@@ -7,23 +7,15 @@ import './Expenses.css'
 import Card from '../ui/Card'
 
 const Expenses = (props) => {
-    const dateFilter = (year) => {
-        props.onFilChange(year)
-    }
-
     const filteredExpenses = props.expenses.filter((expenser)=> {
         return expenser.date.getFullYear().toString() === props.filtYear
     })
 
-    const delExp = (expId) => {
-        props.onDeleteOfExp(expId)
-    }
-
     return (
         <Card className='expenses'>
-            <ExpensesFilter selectedYear={props.filtYear} onFilterChange={dateFilter} filterDates={props.filterDates} />
+            <ExpensesFilter selectedYear={props.filtYear} />
             <ExpensesChart expenses={filteredExpenses} />
-            <ExpensesList expenses={filteredExpenses} onDeleteExpe={delExp}/>
+            <ExpensesList expenses={filteredExpenses} />
         </Card>
         );
 }
